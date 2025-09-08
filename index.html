@@ -101,28 +101,55 @@
     <main class="">
       <!-- About the Campaign Section  -->
       <section class="mt-[100px] max-w-[1040px] mx-auto">
-        <!-- title of the section  -->
-        <h1 class="text-4xl font-semibold text-center my-[40px]">
-          About the Campaign
-        </h1>
-        <!-- About the campaign section container of content  -->
-        <div class="flex items-center gap-5">
-          <div class="flex-1">
-            <img src="Photos/about.png" alt="" />
+        <div class="p-15">
+          <!-- title of the section  -->
+          <h1 class="text-4xl font-semibold text-center my-[40px]">
+            About the Campaign
+          </h1>
+          <!-- About the campaign section container of content  -->
+          <div class="flex flex-col md:flex-row items-center gap-5">
+            <div class="flex-1">
+              <img src="Photos/about.png" alt="" />
+            </div>
+            <div class="flex-1 p-5 text-gray-700">
+              <!-- description  -->
+              <p>
+                Green Earth is a global tree plantation initiative dedicated to
+                fighting climate change. Since our start, we’ve planted over
+                500,000 trees worldwide. By joining our campaign, you help
+                restore forests, create habitats for wildlife, and combat global
+                warming.
+              </p>
+              <ul class="list-disc px-10">
+                <li>Restoration of natural habitats</li>
+                <li>Improvement of air quality</li>
+                <li>Support for local communities</li>
+              </ul>
+            </div>
           </div>
-          <div class="flex-1 p-5 text-gray-700">
-            <!-- description  -->
-            <p>
-              Green Earth is a global tree plantation initiative dedicated to
-              fighting climate change. Since our start, we’ve planted over
-              500,000 trees worldwide. By joining our campaign, you help restore
-              forests, create habitats for wildlife, and combat global warming.
-            </p>
-            <ul class="list-disc px-10">
-              <li>Restoration of natural habitats</li>
-              <li>Improvement of air quality</li>
-              <li>Support for local communities</li>
-            </ul>
+        </div>
+      </section>
+      <!-- Our Impact Section  -->
+      <section
+        class="bg-[#CFF0DC] flex flex-col items-center justify-center p-15 space-y-5"
+      >
+        <!-- title of the our Impact Section  -->
+        <h1 class="text-[30px] font-semibold">Our Impact</h1>
+        <!-- Container of the Our Impact section  -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 justify-center w-11/12 gap-10"
+        >
+          <div class="text-center p-10 rounded-md bg-white">
+            <h1 class="text-xl font-bold text-green-800">500K+</h1>
+            <p class="text-gray-500 text-md">Trees Planted</p>
+          </div>
+          <div class="text-center p-10 rounded-md bg-white">
+            <h1 class="text-xl font-bold text-green-800">120+</h1>
+            <p class="text-gray-500 text-md">Countries Involved</p>
+          </div>
+          <div class="text-center p-10 rounded-md bg-white">
+            <h1 class="text-xl font-bold text-green-800">30+</h1>
+            <p class="text-gray-500 text-md">Countries Reached</p>
           </div>
         </div>
       </section>
