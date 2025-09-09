@@ -7,6 +7,7 @@
 //! price: 600
 
 const loadAllPlantData = async () => {
+  manageSpinner(true);
   const url = "https://openapi.programming-hero.com/api/plants";
   const res = await fetch(url);
   const informations = await res.json();
@@ -57,6 +58,7 @@ const displayAllPlants = (plants) => {
               </div>`;
     cardContainer.appendChild(cardDiv);
   });
+  manageSpinner(false);
 };
 
 //TODO : loading the Categories
@@ -91,10 +93,21 @@ const displayCategories = (plants) => {
 };
 
 const displayPlantsByCategory = async (id) => {
+  manageSpinner(true);
   const url = `https://openapi.programming-hero.com/api/category/${id}`;
   const res = await fetch(url);
   const informations = await res.json();
   displayAllPlants(informations.plants);
+};
+
+const manageSpinner = (status) => {
+  if (status == true) {
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("card_container").classList.add("hidden");
+  } else {
+    document.getElementById("spinner").classList.add("hidden");
+    document.getElementById("card_container").classList.remove("hidden");
+  }
 };
 
 loadAllPlantData();
