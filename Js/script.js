@@ -32,11 +32,15 @@ const displayAllPlants = (plants) => {
     cardDiv.innerHTML = `<div class="h-full rounded-xl bg-white p-2 flex flex-col gap-2">
                 <!-- container for the image  -->
                 <div class="rounded-md h-50 overflow-hidden">
-                  <img src="${plant.image}" alt="" class="w-full h-full object-cover"/>
+                  <img src="${
+                    plant.image
+                  }" alt="" class="w-full h-full object-cover"/>
                 </div>
                 <!-- container for the title, description and the add to cart button  -->
                 <div class="flex flex-col flex-1 space-y-3">
-                  <div class="text-xl font-semibold cursor-pointer" onclick="loadTreeDetails(${plant.id})">${plant.name}</div>
+                  <div class="text-xl font-semibold cursor-pointer" onclick="loadTreeDetails(${
+                    plant.id
+                  })">${plant.name}</div>
                   <p class="text-gray-700 text-sm">${plant.description}</p>
                   <div class="flex justify-between p-1">
                     <button
@@ -51,7 +55,11 @@ const displayAllPlants = (plants) => {
                     </p>
                   </div>
                   <button
-                    class="w-full rounded-full p-2 font-medium text-white bg-[#2e9053] transition:all duration-200 ease-in-out hover:scale-103 mt-auto"
+                    class="w-full rounded-full p-2 font-medium text-white bg-[#2e9053] transition:all duration-200 ease-in-out hover:scale-103 mt-auto cursor-pointer"
+                    onclick='addToCart(${JSON.stringify(plant).replace(
+                      /"/g,
+                      "&quot;"
+                    )})'
                   >
                     Add to cart Button
                   </button>
@@ -152,6 +160,61 @@ const displayTreeDetails = (plant) => {
   document.getElementById("word_modal").showModal();
 };
 
+//? Keeping tract of the cartItem Globally
+let cartItems = [];
+const addToCart = (plant) => {
+  //?---> When the add to cart button is clicked pushing items to the cartItem Global Array
+  cartItems.push(plant);
+  renderCart();
+};
+
+const renderCart = () => {
+  //?--->Getting the Cart Container and Emptying it
+  const cartContainer = document.getElementById("cart_container");
+  cartContainer.innerHTML = "";
+
+  let total = 0;
+
+  cartItems.forEach((plant, index) => {
+    total += plant.price;
+    const cartItem = document.createElement("div");
+    cartItem.innerHTML = `
+      <div class="flex items-center justify-between bg-[#DCFCE7] rounded-lg px-3 py-2">
+        <div>
+          <p class="font-medium">${plant.name}</p>
+          <p class="text-sm font-medium text-gray-600">
+            <i class="fa-solid fa-bangladeshi-taka-sign text-sm"></i>${plant.price} x 1
+          </p>
+        </div>
+        <button 
+          type="button" 
+          class="text-gray-500 hover:text-red-600"
+          onclick="removeFromCart(${index})"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>`;
+    cartContainer.appendChild(cartItem);
+  });
+
+  //?--> Total of the cart Section
+  const totalDiv = document.createElement("div");
+  totalDiv.innerHTML = `
+    <div class="flex justify-between items-center mt-3 font-semibold">
+      <span>Total:</span>
+      <span><i class="fa-solid fa-bangladeshi-taka-sign"></i>${total}</span>
+    </div>`;
+  ``;
+  cartContainer.appendChild(totalDiv);
+};
+
+//? ---> Removing the Specific Item from the cart and rendering the cart again without that specific item
+const removeFromCart = (index) => {
+  cartItems.splice(index, 1);
+  renderCart();
+};
+
+//?---> Modal Closure Button for closing the
 document.getElementById("btn-close").addEventListener("onclick", () => {
   document.getElementById("word_modal").close();
 });
