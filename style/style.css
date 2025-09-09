@@ -2,3 +2,8 @@
 .oswald {
   font-family: "poppins", sans-serif;
 } 
+.active{
+  background-color: #2e9053;
+  color: white;
+  transition: all 3s ease-in;
+}

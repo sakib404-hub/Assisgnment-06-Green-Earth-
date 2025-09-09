@@ -83,7 +83,7 @@ const displayCategories = (plants) => {
 
     //? --> Setting up the container inner Html
     divContainer.innerHTML = `
-     <div class="px-4 py-1 text-gray-700 rounded-md shadow-sm transition:all duration-300 ease-in-out hover:bg-[#15803D] hover:text-white hover:shadow-md hover:scale-105 cursor-pointer" onclick="displayPlantsByCategory(${plant.id})"
+     <div id="category-btn-${plant.id}" class="px-4 py-1 text-gray-700 rounded-md shadow-sm transition:all duration-300 ease-in-out hover:bg-[#15803D] hover:text-white hover:shadow-md hover:scale-105 cursor-pointer btn-active" onclick="activateCategory(${plant.id}); displayPlantsByCategory(${plant.id})"
               >
                 ${plant.category_name}
               </div>`;
@@ -99,6 +99,18 @@ const displayPlantsByCategory = async (id) => {
   const res = await fetch(url);
   const informations = await res.json();
   displayAllPlants(informations.plants);
+};
+
+const activateCategory = (id) => {
+  // Remove 'active' from all buttons
+  const categoryBtns = document.querySelectorAll(".btn-active");
+  categoryBtns.forEach((btn) => btn.classList.remove("active"));
+
+  // Add 'active' to the clicked button
+  const clickedBtn = document.getElementById(`category-btn-${id}`);
+  if (clickedBtn) {
+    clickedBtn.classList.add("active");
+  }
 };
 
 const manageSpinner = (status) => {
