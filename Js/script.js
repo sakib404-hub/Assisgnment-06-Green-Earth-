@@ -163,9 +163,16 @@ const displayTreeDetails = (plant) => {
 //? Keeping tract of the cartItem Globally
 let cartItems = [];
 const addToCart = (plant) => {
-  //?---> When the add to cart button is clicked pushing items to the cartItem Global Array
-  cartItems.push(plant);
-  renderCart();
+  //? ---> Showing an Alert if the user rellay wants to add to cart
+  const confirmAdd = confirm(
+    `Do you really want to add "${plant.name}" to the cart?`
+  );
+
+  if (confirmAdd) {
+    //?---> When the add to cart button is clicked pushing items to the cartItem Global Array
+    cartItems.push(plant);
+    renderCart();
+  }
 };
 
 const renderCart = () => {
