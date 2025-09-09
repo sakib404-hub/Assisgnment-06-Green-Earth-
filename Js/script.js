@@ -21,6 +21,7 @@ const displayAllPlants = (plants) => {
   cardContainer.innerHTML = "";
 
   plants.forEach((plant) => {
+    // onclick="loadWordDetail(${word.id})
     // console.log(plant.image);
     // console.log(plant.description);
     // console.log(plant.name);
@@ -35,7 +36,7 @@ const displayAllPlants = (plants) => {
                 </div>
                 <!-- container for the title, description and the add to cart button  -->
                 <div class="flex flex-col flex-1 space-y-3">
-                  <h1 class="text-xl font-semibold">${plant.name}</h1>
+                  <div class="text-xl font-semibold cursor-pointer" onclick="loadTreeDetails(${plant.id})">${plant.name}</div>
                   <p class="text-gray-700 text-sm">${plant.description}</p>
                   <div class="flex justify-between p-1">
                     <button
@@ -109,6 +110,39 @@ const manageSpinner = (status) => {
     document.getElementById("card_container").classList.remove("hidden");
   }
 };
+
+//! category: "Timber Tree"
+//! description: "A tall hardwood tree producing extremely strong timber. Used extensively in heavy construction and railway sleepers."
+//!id: 15
+//! c: "https://i.ibb.co.com/Lz6BSq4Z/sal-min.jpg"
+//! name: "Sal Tree"
+//! price: 1800
+
+//?Loading the Tree Details
+const loadTreeDetails = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/plant/${id}`;
+  const res = await fetch(url);
+  const treeDetails = await res.json();
+  displayTreeDetails(treeDetails.plants);
+};
+//? Displaying the tree details
+const displayTreeDetails = (plant) => {
+  const detailsContainer = document.getElementById("details_container");
+  detailsContainer.innerHTML = `<div class="space-y-3">
+          <h1 class="text-xl font-semibold">${plant.name}</h1>
+          <div class="h-50 w-full rounded-xl">
+            <img src="${plant.image}" alt="" class="w-full h-full object-cover rounded-xl"/>
+          </div>
+          <p><span class="text-base font-semibold">Category : </span>${plant.category}</p>
+          <p><span class="text-base font-semibold">Price : </span><i class="fa-solid fa-bangladeshi-taka-sign text-sm"></i>${plant.price}</p>
+          <p><span class="text-base font-semibold">Description :</span> ${plant.description}</p>
+        </div>`;
+  document.getElementById("word_modal").showModal();
+};
+
+document.getElementById("btn-close").addEventListener("onclick", () => {
+  document.getElementById("word_modal").close();
+});
 
 loadAllPlantData();
 loadingCategories();
