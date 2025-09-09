@@ -80,7 +80,7 @@ const displayCategories = (plants) => {
 
     //? --> Setting up the container inner Html
     divContainer.innerHTML = `
-     <div class="px-4 py-1 text-gray-700 rounded-md shadow-sm transition:all duration-300 ease-in-out hover:bg-[#15803D] hover:text-white hover:shadow-md hover:scale-105 cursor-pointer"
+     <div class="px-4 py-1 text-gray-700 rounded-md shadow-sm transition:all duration-300 ease-in-out hover:bg-[#15803D] hover:text-white hover:shadow-md hover:scale-105 cursor-pointer" onclick="displayPlantsByCategory(${plant.id})"
               >
                 ${plant.category_name}
               </div>`;
@@ -88,6 +88,13 @@ const displayCategories = (plants) => {
     categoriesContainer.appendChild(divContainer);
     // console.log(plant.category_name);
   });
+};
+
+const displayPlantsByCategory = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/category/${id}`;
+  const res = await fetch(url);
+  const informations = await res.json();
+  displayAllPlants(informations.plants);
 };
 
 loadAllPlantData();
