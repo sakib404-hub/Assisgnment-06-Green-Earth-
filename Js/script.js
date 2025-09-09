@@ -11,17 +11,53 @@ const loadAllPlantData = async () => {
   const res = await fetch(url);
   const informations = await res.json();
   //   displayAllPlants(informations.plants);
-  displayCategories(informations.plants);
+  displayAllPlants(informations.plants);
 };
-//TODO: Displaying all the trees
-// const displayAllPlants = (plants) => {
-//   plants.forEach((plant) => {
-//     console.log(plant.image);
-//     console.log(plant.description);
-//     console.log(plant.name);
-//     console.log(plant.price);
-//   });
-// };
+//TODO: Displaying trees
+const displayAllPlants = (plants) => {
+  //? ---> Getting the card Container and empty it
+  const cardContainer = document.getElementById("card_container");
+  cardContainer.innerHTML = "";
+
+  plants.forEach((plant) => {
+    // console.log(plant.image);
+    // console.log(plant.description);
+    // console.log(plant.name);
+    // console.log(plant.price);
+    //? --> Creating the card
+    const cardDiv = document.createElement("div");
+    //? ---> Setting the card contents
+    cardDiv.innerHTML = `<div class="h-full rounded-xl bg-white p-2 flex flex-col gap-2">
+                <!-- container for the image  -->
+                <div class="rounded-md h-50 overflow-hidden">
+                  <img src="${plant.image}" alt="" class="w-full h-full object-cover"/>
+                </div>
+                <!-- container for the title, description and the add to cart button  -->
+                <div class="flex flex-col flex-1 space-y-3">
+                  <h1 class="text-xl font-semibold">${plant.name}</h1>
+                  <p class="text-gray-700 text-sm">${plant.description}</p>
+                  <div class="flex justify-between p-1">
+                    <button
+                      class="border px-2 py-1 rounded-full bg-[#DCFCE7] text-[#2E9053]"
+                    >
+                      ${plant.category}
+                    </button>
+                    <p class="text-base font-semibold">
+                      <span
+                        ><i class="fa-solid fa-bangladeshi-taka-sign"></i></span
+                      >${plant.price}
+                    </p>
+                  </div>
+                  <button
+                    class="w-full rounded-full p-2 font-medium text-white bg-[#2e9053] transition:all duration-200 ease-in-out hover:scale-103 mt-auto"
+                  >
+                    Add to cart Button
+                  </button>
+                </div>
+              </div>`;
+    cardContainer.appendChild(cardDiv);
+  });
+};
 
 //TODO : loading the Categories
 const loadingCategories = async () => {
@@ -54,5 +90,5 @@ const displayCategories = (plants) => {
   });
 };
 
-// loadAllPlantData();
+loadAllPlantData();
 loadingCategories();
